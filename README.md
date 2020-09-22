@@ -1,4 +1,4 @@
 # LoginRegisterSystem
-<h2>It's a simple login register system created using php,mysql</h2>
-#contributor
+<p>It's a simple login register system created using php,mysql</p>
+<h2>contributor</h2>
 Md Alamin Hossain
