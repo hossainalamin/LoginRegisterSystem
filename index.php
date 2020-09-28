@@ -23,7 +23,7 @@ session::set("loginmsg",null);
         <div class="card-body">
             <table class="table table-striped table-hover table-bordered">
 
-                <th>Serial</th>
+                <th>serial</th>
                 <th>Name</th>
                 <th>Username</th>
                 <th>Email</th>
