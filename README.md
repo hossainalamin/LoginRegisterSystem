@@ -3,8 +3,14 @@
 <h2>Features</h2>
 <li>
   User login(session bassis)
+</li>
+<li>
   User registration
+</li>
+<li>
   Update user profile
+</li>
+<li>
   Change password
 </li>  
 <h2>contributor</h2>
