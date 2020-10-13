@@ -2,6 +2,9 @@
 include'library/header.php';
 include'library/user.php';
 session::checkSession();
+if(time()-session::get('current_timestamp')>60){
+	session::destroy();
+}
 ?>
 <?php
 session::init();
