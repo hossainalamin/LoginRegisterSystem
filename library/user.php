@@ -124,6 +124,7 @@ class user
             session::set('name',$result->name);
             session::set('username',$result->username);
             session::set('loginmsg',"<div class='alert alert-success'><strong>Login Successfull</strong></div>");
+            session::set('current_timestamp',time());
             header("location:index.php");
 
         }
