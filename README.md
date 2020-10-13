@@ -3,6 +3,7 @@
 <h2>Features</h2>
 <li>
   User login(session bassis)
+  User Logout(inactivity within 1 minute)
 </li>
 <li>
   User registration
