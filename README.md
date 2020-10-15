@@ -13,7 +13,10 @@
 </li>
 <li>
   Change password
-</li>  
+</li> 
+<li>
+  Secure Session id
+</li>
 <h2>contributor</h2>
 Md Alamin Hossain
 
