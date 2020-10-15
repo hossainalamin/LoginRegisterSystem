@@ -8,6 +8,7 @@ if(time()-session::get('current_timestamp')>60){
 ?>
 <?php
 session::init();
+session_regenerate_id();
 $loginmsg=session::get('loginmsg');
 echo $loginmsg;
 session::set("loginmsg",null);
