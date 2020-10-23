@@ -3,11 +3,14 @@
 <h2>Features</h2>
 <li>
   User login(session bassis)
+</li>
+<li>
   User Logout(inactivity within 1 minute)
 </li>
 <li>
   User registration
 </li>
+<li>Phone number verification using sms api</li>  
 <li>
   Update user profile
 </li>
