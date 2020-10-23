@@ -14,9 +14,10 @@ class user
         $name     = $data['name'];
         $username = $data['username'];
         $email    = $data['email'];
+        $phone    = $data['phone'];
         $pass     = $data['password'];
         $chk_email= $this->emailCheck($email);
-        if($name ==" " or $username ==" " or $email == "" or $pass == "")
+        if($name =="" or $username =="" or $email == "" or $pass == "" or $phone == "")
         {
             $msg="<div class='alert alert-danger'><strong>Any of the field should not be empty!</strong></div>";
             return $msg;
@@ -49,16 +50,17 @@ class user
         else
         {
             $pass     = md5($data['password']);
-            $sql="insert into $this->tbl(name,username,email,password) values(:name,:username,:email,:password)";
+            $sql="insert into $this->tbl(name,username,email,phone,password) values(:name,:username,:email,:phone,:password)";
             $stmt= $this->db->pdo->prepare($sql);
             $stmt->bindValue(':name',$name);
             $stmt->bindValue(':username',$username);
             $stmt->bindValue(':email',$email);
+            $stmt->bindValue(':phone',$phone);
             $stmt->bindValue(':password',$pass);
             $result = $stmt->execute();
             if($result)
             {
-                $msg="<div class='alert alert-success'><strong>Registration Successfull.ThankYou</strong></div>";
+                $msg="<div class='alert alert-success'><strong>Registration Successfull.ThankYouu</strong></div>";
                 return $msg;
             }
             else
@@ -71,7 +73,88 @@ class user
         }
 
     }
-    public function emailCheck($email)
+	public function verify($data)
+    {
+        $phone     = $data['phone'];
+        if(empty($phone))
+        {
+            $msg="<div class='alert alert-danger'><strong>Any of the field should not be empty!</strong></div>";
+            return $msg;
+        }
+        else
+        {
+			$sql  = "select phone from tbl_user where phone = :phone";
+			$stmt = $this->db->pdo->prepare($sql);
+			$stmt->bindValue(':phone',$phone);
+			$stmt->execute();
+			if($stmt->rowCount()>0){
+					$token = "acd0069af0e40eb62acba975278c094e";
+					$otp   = array('0','1','2','3','4','5','6','7','8','9');
+					$length = 6;
+					$str = "";
+					for($i = 0;$i<$length;$i++){
+						shuffle($otp);
+						$str .= $otp[0];  
+					}
+					$message = $str;
+					$url = "http://api.greenweb.com.bd/api2.php";
+
+					$data= array(
+					'to'=>"$phone",
+					'message'=>"$message",
+					'token'=>"$token"
+					); // Add parameters in key value
+					$ch = curl_init(); // Initialize cURL
+					curl_setopt($ch, CURLOPT_URL,$url);
+					curl_setopt($ch, CURLOPT_ENCODING, '');
+					curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					$smsresult = curl_exec($ch);
+					echo curl_error($ch);
+					$sql="update  
+					tbl_user
+					set otp = $message
+					where phone = :phone";
+					$stmt= $this->db->pdo->prepare($sql);
+					$stmt->bindValue(':phone',$phone);
+					$upOtp = $stmt->execute();
+					if($upOtp){
+						$success="An otp send in " .$phone. " Please place it for verification";
+						header("location:sms.php?msg=$success&&phone=$phone");
+					}else{
+						$fail="Otp does not sent";
+						header("location:sms.php?msg=$fail");
+					}
+				
+			}else{
+					$fail="Number doesn't match";
+					return $fail;
+			}
+
+		}
+
+    }
+	public function confirm($data)
+    {
+        $otp = $data['otp'];
+		$phone = $data['phone'];
+        $sql = "select otp from tbl_user where phone = :phone and otp = :otp";
+        $stmt= $this->db->pdo->prepare($sql);
+        $stmt->bindValue(':phone',$phone);
+        $stmt->bindValue(':otp',$otp);
+        $result = $stmt->execute();
+        if($stmt->rowCount()>0)
+        {
+			header("location:confirm.php");
+        }
+        else
+        {
+            $txt="<div class='alert alert-danger'><strong>Verification unsuccessfull.Something wrong.</strong></div>";
+			return $txt;
+		}
+
+    }
+	public function emailCheck($email)
     {
         $sql = "select email from tbl_user where email = :email";
         $stmt= $this->db->pdo->prepare($sql);
@@ -124,7 +207,7 @@ class user
             session::set('name',$result->name);
             session::set('username',$result->username);
             session::set('loginmsg',"<div class='alert alert-success'><strong>Login Successfull</strong></div>");
-            session::set('current_timestamp',time());
+			session::set('current_timestamp',time());
             header("location:index.php");
 
         }
@@ -201,7 +284,7 @@ class user
             }
             else
             {
-                 $msg="<div class='alert alert-success'><strong>Update unsuccessfull.Something wrong.</strong></div>";
+                 $msg="<div class='alert alert-danger'><strong>Update unsuccessfull.Something wrong.</strong></div>";
                 return $msg;
 
             }
@@ -262,7 +345,7 @@ class user
             }
             else
             {
-                 $msg="<div class='alert alert-success'><strong>Update unsuccessfull.Something wrong.</strong></div>";
+                 $msg="<div class='alert alert-danger'><strong>Update unsuccessfull.Something wrong.</strong></div>";
                 return $msg;
 
             }
