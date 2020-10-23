@@ -20,6 +20,5 @@
 <li>
   Secure Session id
 </li>
-<h2>contributor</h2>
-Md Alamin Hossain
+###Md Alamin Hossain
 
