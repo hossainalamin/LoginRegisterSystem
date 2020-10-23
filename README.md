@@ -5,7 +5,7 @@
   User login(session bassis)
 </li>
 <li>
-  User Logout(inactivity within 1 minute)
+  User auto Logout(inactivity within 1 minute)
 </li>
 <li>
   User registration
@@ -18,7 +18,8 @@
   Change password
 </li> 
 <li>
-  Secure Session id
+  Secure Session id by regenerate each time
 </li>
-###Md Alamin Hossain
+<h2>contributor</h2>
+Md Alamin Hossain
 
