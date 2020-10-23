@@ -10,8 +10,7 @@ session::init();
     <title>Login Register</title>
 </head>
 <?php
-    if(isset($_GET['action']) && $_GET['action'] == 'logout')
-    {
+    if(isset($_GET['action']) && $_GET['action'] == 'logout'){
         session::destroy();
     }
 ?>
@@ -44,6 +43,9 @@ session::init();
                     ?>
                     <li class="nav-item">
                         <a class="nav-link" href="register.php">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="verify.php">Verify</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Login</a>
