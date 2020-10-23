@@ -1,5 +1,5 @@
 # LoginRegisterSystem
-<p>It's a simple login register system created using php,mysql</p>
+<p>It's a simple login register system created using php PDO class and mysql database</p>
 <h2>Features</h2>
 <li>
   User login(session bassis)
