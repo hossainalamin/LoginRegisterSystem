@@ -23,6 +23,8 @@ if($_SERVER['REQUEST_METHOD']=='POST' and isset($_POST['register']))
                <input type="text" name="username" class="form-control" placeholder="Enter username">
                <label for="email">Email:</label>
                <input type="text" name="email" class="form-control" placeholder="Enter Email">
+               <label for="email">Phone:</label>
+               <input type="text" name="phone" class="form-control" placeholder="Enter phone number">
                 <label for="password">Password:</label>
                <input type="text" name="password" class="form-control" placeholder="Enter Password"> 
                <input type="submit"class="btn btn-primary mt-2" value="Register" name="register">
